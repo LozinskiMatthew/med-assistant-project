@@ -65,7 +65,7 @@ class NoteListView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Note.objects.filter(user=self.request.user).order_by('-updated_at')  # newest first
+        return Note.objects.filter(user=self.request.user).order_by('-updated_at')
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -87,7 +87,7 @@ class MedicineListView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-class MedicineDetailView(generics.RetrieveUpdateDestroyAPIView):  # 👈 change this line
+class MedicineDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = MedicineSerializer
     permission_classes = [IsAuthenticated]
 
