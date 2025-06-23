@@ -5,9 +5,10 @@ from .models import User, Medicine, Note
 class RegisterUserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
     password = serializers.CharField(min_length=8, write_only=True)
+    username = serializers.CharField(min_length=8, max_length=20, write_only=True, allow_blank=True, required=False)
     class Meta:
         model = User
-        fields = ['email', 'password']
+        fields = ['email', 'password', 'username'] #in the future, I shall add theme_default
 
     def validate_email(self, value):
         if User.objects.filter(email=value).exists():
@@ -37,13 +38,8 @@ class NoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note
         fields = ['id', 'title', 'text', 'date', 'updated_at']
-        read_only_fields = ['date', 'updated_at']
+        read_only_fields = ['date', 'updated_at'] # I should remove one
 
-"""
-    def create(self, validated_data):
-        user = self.context['request'].user
-        return Note.objects.create(user=user, **validated_data)
-"""
 class MedicineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Medicine

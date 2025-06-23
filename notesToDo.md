@@ -17,3 +17,5 @@ In future I'd love to add  docter and patient accounts division.
 
 Black theme should be added, with easy switching.
 ToDo: Remove Date field from note model.
+
+Remove one DateField from medicine

@@ -45,8 +45,24 @@ class ProfileView(APIView):
         user = request.user
         return Response({
             "user_id": user.id,
-            "email": user.email
+            "email": user.email,
+            "username": user.username,
         })
+
+    def put(self, request):
+        user = request.user
+        data = request.data
+
+        if 'email' in data:
+            user.email = data['email']
+        if 'username' in data:
+            user.username = data['username']
+        if 'password' in data:
+            user.set_password(data['password'])
+
+        user.save()
+        return Response({"detail": "Updated successfully"})
+
 
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
@@ -59,6 +75,14 @@ class LogoutView(APIView):
             return Response(status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
             return Response({"detail": "Invalid refresh token"}, status=status.HTTP_400_BAD_REQUEST)
+
+class DeleteAccountView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request):
+        user = request.user
+        user.delete()
+        return Response({"detail": "Account deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
 
 class NoteListView(generics.ListCreateAPIView):
     serializer_class = NoteSerializer

@@ -3,6 +3,7 @@ from django.contrib.auth.hashers import make_password, check_password
 
 class User(models.Model):
     email = models.EmailField(unique=True)
+    username = models.CharField(max_length=20, null=True, blank=True) # Note that this cannot be an ID
     password = models.CharField(max_length=128)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -22,8 +23,8 @@ class User(models.Model):
 
 class Medicine(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='medicines')
-    title = models.TextField()
-    description = models.TextField()
+    title = models.TextField(max_length=400)
+    description = models.TextField(max_length=50000)
     dosage = models.CharField(max_length=100)
     date = models.DateTimeField()
 
@@ -33,8 +34,8 @@ class Medicine(models.Model):
 
 class Note(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notes')
-    title = models.TextField()
-    text = models.TextField()
+    title = models.TextField(max_length=1000)
+    text = models.TextField(max_length=100000)
     date = models.DateField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
