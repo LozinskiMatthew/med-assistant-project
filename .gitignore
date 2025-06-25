@@ -1,2 +1,7 @@
 # Environment file
 .env
+# Program files
+.idea/
+# Angular modules and auto gen settings
+frontend/node_modules
+frontend/.angular
