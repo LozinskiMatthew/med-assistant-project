@@ -1,0 +1,16 @@
+<div class="auth-form">
+  <h2>Login</h2>
+
+  <input [(ngModel)]="email" placeholder="Email" />
+  <div class="error" *ngIf="backendErrors.email">{{ backendErrors.email }}</div>
+
+  <input [(ngModel)]="password" type="password" placeholder="Password" />
+  <div class="error" *ngIf="backendErrors.password">{{ backendErrors.password }}</div>
+
+  <button (click)="login()">Login</button>
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+  <p class="success" *ngIf="success">{{ success }}</p>
+
+  <p>Don't have an account? <a routerLink="/register">Register here</a></p>
+</div>

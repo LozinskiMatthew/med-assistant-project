@@ -1,0 +1,41 @@
+<div class="notes-container">
+<div class="header">
+  <h2>Your Notes</h2>
+  <button class="go-back-button" (click)="goBack()">← Main page</button>
+</div>
+
+  <div class="note-form">
+    <input type="text" placeholder="Title" [(ngModel)]="newNote.title" />
+    <div class="field-error" *ngIf="errors.title">{{ errors.title }}</div>
+
+    <textarea placeholder="Text" [(ngModel)]="newNote.text"></textarea>
+    <div class="field-error" *ngIf="errors.text">{{ errors.text }}</div>
+
+    <div class="note-form-buttons">
+      <button *ngIf="editingNoteId === null" (click)="addNote()">Add Note</button>
+      <button *ngIf="editingNoteId !== null" (click)="updateNote()">Update</button>
+      <button *ngIf="editingNoteId !== null" (click)="cancelEdit()">Cancel</button>
+    </div>
+  </div>
+
+
+  <div *ngIf="notes.length > 0; else noNotes">
+    <div class="note-card" *ngFor="let note of notes">
+      <div class="note-content">
+        <h3>{{ note.title }}</h3>
+        <p>{{ note.text }}</p>
+      </div>
+      <div class="note-actions">
+        <small class="note-date">
+          Last edited: {{ note.updated_at | date: 'd MMMM y, h:mm:ss a' }}
+        </small>
+        <button class="edit-button" (click)="startEdit(note)">Edit</button>
+        <button class="delete-button" (click)="deleteNote(note.id)">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noNotes>
+    <p class="no-notes">You have no notes yet.</p>
+  </ng-template>
+</div>

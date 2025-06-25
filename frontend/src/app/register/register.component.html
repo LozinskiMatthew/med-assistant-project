@@ -1,0 +1,15 @@
+<div class="auth-form">
+  <h2>Register</h2>
+
+  <input [(ngModel)]="email" placeholder="Email" name="email" />
+  <div class="error" *ngIf="backendErrors.email">{{ backendErrors.email }}</div>
+
+  <input [(ngModel)]="password" type="password" placeholder="Password" name="password" />
+  <div class="error" *ngIf="backendErrors.password">{{ backendErrors.password }}</div>
+
+  <button (click)="register()">Register</button>
+
+  <div *ngIf="error" class="error global-error">{{ error }}</div>
+
+  <p>Already have an account? <a routerLink="/login">Login here</a></p>
+</div>

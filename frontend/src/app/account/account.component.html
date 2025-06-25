@@ -1,0 +1,27 @@
+<div class="chat-container">
+  <h2 class="chat-title">Account Details</h2>
+
+  <div class="chat-box">
+    <div *ngIf="!editMode">
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>User ID:</strong> {{ user.user_id }}</p>
+      <p *ngIf="user.username"><strong>Username:</strong> {{ user.username }}</p>
+      <p *ngIf="!user.username"><strong>Username:</strong> not set</p>
+    </div>
+
+    <div *ngIf="editMode">
+      <label>Email: <input [(ngModel)]="newEmail" /></label><br />
+      <label>Password: <input [(ngModel)]="newPassword" type="password" /></label><br />
+      <label>Username: <input [(ngModel)]="newUsername" /></label><br />
+    </div>
+  </div>
+
+  <div class="chat-input-area">
+    <button (click)="editMode = !editMode">
+      {{ editMode ? 'Cancel' : 'Edit' }}
+    </button>
+    <button *ngIf="editMode" (click)="updateProfile()">Save</button>
+    <button class="logout" (click)="logout()">Logout</button>
+    <button (click)="deleteAccount()">Delete Account</button>
+  </div>
+</div>

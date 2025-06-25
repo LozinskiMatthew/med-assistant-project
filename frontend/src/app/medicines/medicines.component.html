@@ -1,0 +1,47 @@
+<div class="medicines-container">
+  <div class="header">
+    <h2>Your Medicines</h2>
+    <button routerLink="/dashboard" class="back-button">← Main page</button>
+  </div>
+
+  <div class="medicine-form">
+    <input [(ngModel)]="newMedicine.title" placeholder="Title" />
+    <div class="field-error" *ngIf="errors.title">{{ errors.title }}</div>
+
+    <textarea [(ngModel)]="newMedicine.description" placeholder="Description"></textarea>
+    <div class="field-error" *ngIf="errors.description">{{ errors.description }}</div>
+
+    <input [(ngModel)]="newMedicine.dosage" placeholder="Dosage" />
+    <div class="field-error" *ngIf="errors.dosage">{{ errors.dosage }}</div>
+
+    <input [(ngModel)]="newMedicine.date" type="datetime-local" />
+    <div class="field-error" *ngIf="errors.date">{{ errors.date }}</div>
+
+    <div class="form-buttons">
+      <button (click)="addMedicine()">
+        {{ editingMedicineId === null ? 'Add Medicine' : 'Update Medicine' }}
+      </button>
+      <button *ngIf="editingMedicineId !== null" (click)="cancelEdit()">Cancel</button>
+    </div>
+  </div>
+
+
+  <div *ngIf="medicines.length > 0; else noMeds">
+    <div class="medicine-card" *ngFor="let medicine of medicines">
+      <div>
+        <h3>{{ medicine.title }}</h3>
+        <p><strong>Dosage:</strong> {{ medicine.dosage }}</p>
+        <p><strong>Description:</strong> {{ medicine.description }}</p>
+        <p><strong>Time to take the medicine:</strong> {{ medicine.date | date:'yyyy-MM-dd HH:mm' }}</p>
+      </div>
+      <div class="medicine-actions">
+        <button (click)="startEdit(medicine)" class="edit-button">Edit</button>
+        <button (click)="deleteMedicine(medicine.id)" class="delete-button">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noMeds>
+    <p class="no-meds">You have no medicines scheduled yet.</p>
+  </ng-template>
+</div>

@@ -1,0 +1,20 @@
+button {
+  padding: 0.5rem 1rem;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #115293;
+}
+
+.logout {
+  background-color: #d32f2f;
+}
+
+.logout:hover {
+  background-color: #b32f2f;
+}
