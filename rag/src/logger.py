@@ -13,7 +13,7 @@ logging.basicConfig(
     level=logging.INFO
 )
 
-def get_logger(name):
+def get_logger(name="default_logger", level=logging.INFO):
     logger = logging.getLogger(name)
-    logger.setLevel(logging.INFO)
+    logger.setLevel(level)
     return logger

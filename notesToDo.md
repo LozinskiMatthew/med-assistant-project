@@ -13,7 +13,7 @@ Also I should create a  button where I can add .pdfs to make RAG(doctor) be able
 
 RAG doc should be on the dashboard page.
 
-In future I'd love to add  docter and patient accounts division.
+In future I'd love to add  doctor and patient accounts division.
 
 Black theme should be added, with easy switching.
 ToDo: Remove Date field from note model.

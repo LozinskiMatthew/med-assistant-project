@@ -19,7 +19,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from api.views import RegisterView, LoginView, ProfileView, NoteListView, MedicineListView, NoteDetailView, \
-    MedicineDetailView, DeleteAccountView
+    MedicineDetailView, DeleteAccountView, LogoutView
 from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
@@ -33,4 +33,5 @@ urlpatterns = [
     path('api/profile/notes/<int:pk>/', NoteDetailView.as_view()),
     path('api/profile/medicines/<int:pk>/', MedicineDetailView.as_view()),
     path('api/delete-account/', DeleteAccountView.as_view(), name='delete-account'),
+    path('api/logout/', LogoutView.as_view(), name='logout'),
 ]

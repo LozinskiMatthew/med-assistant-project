@@ -1,7 +1,23 @@
 # Environment file
 .env
-# Program files
+
+# Program files pycharm/VSCode
 .idea/
+.vscode/
+
 # Angular modules and auto gen settings
 frontend/node_modules
 frontend/.angular
+
+# PYTHON / DJANGO
+__pycache__/
+*.py[cod]
+
+# Django migrations compiled files
+**/migrations/*.pyc
+
+# Log files
+*.log
+
+# Python tests
+.pytest_cache/

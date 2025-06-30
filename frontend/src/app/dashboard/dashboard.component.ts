@@ -15,7 +15,7 @@ export class DashboardComponent {
   constructor(private http: HttpClient, private router: Router) {}
 
 account() {
-  this.router.navigate(['/api/account']);
+  this.router.navigate(['/account']);
 }
 
 
