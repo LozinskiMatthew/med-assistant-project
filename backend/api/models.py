@@ -1,10 +1,12 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
 
+
 class User(models.Model):
     email = models.EmailField(unique=True)
-    username = models.CharField(max_length=20, null=True, blank=True) # Note that this cannot be an ID
+    username = models.CharField(max_length=20, null=True, blank=True)  # Note that this cannot be an ID
     password = models.CharField(max_length=128)
+    documents = models.ManyToManyField('Document', related_name='users')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def set_password(self, raw_password):
@@ -19,6 +21,15 @@ class User(models.Model):
 
     def __str__(self):
         return self.email
+
+
+class Document(models.Model):
+    name = models.CharField(max_length=255)
+    document_file = models.FileField(upload_to='documents/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Medicine(models.Model):
