@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Medicine, Note
+from .models import User, Medicine, Note, Document
 
 
 class RegisterUserSerializer(serializers.ModelSerializer):
@@ -49,3 +49,8 @@ class MedicineSerializer(serializers.ModelSerializer):
         validated_data.pop('user', None)
         user = self.context['request'].user
         return Medicine.objects.create(user=user, **validated_data)
+
+class DocumentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Document
+        fields = ['id', 'title', 'document_file', 'uploaded_at']

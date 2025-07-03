@@ -19,8 +19,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from api.views import RegisterView, LoginView, ProfileView, NoteListView, MedicineListView, NoteDetailView, \
-    MedicineDetailView, DeleteAccountView, LogoutView
+    MedicineDetailView, DeleteAccountView, LogoutView, DocumentListView
 from rest_framework_simplejwt.views import TokenRefreshView
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,6 +34,10 @@ urlpatterns = [
     path('api/profile/medicines/', MedicineListView.as_view()),
     path('api/profile/notes/<int:pk>/', NoteDetailView.as_view()),
     path('api/profile/medicines/<int:pk>/', MedicineDetailView.as_view()),
+    path('api/documents/', DocumentListView.as_view()),
     path('api/delete-account/', DeleteAccountView.as_view(), name='delete-account'),
     path('api/logout/', LogoutView.as_view(), name='logout'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,14 +1,17 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import User, Note, Medicine
-from .serializers import RegisterUserSerializer, LoginUserSerializer, NoteSerializer, MedicineSerializer
+from .models import User, Note, Medicine, Document
+from .serializers import RegisterUserSerializer, LoginUserSerializer, NoteSerializer, MedicineSerializer, \
+    DocumentSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import serializers
+from rest_framework.parsers import MultiPartParser, FormParser
+import logging
 
-
+logger = logging.getLogger(__name__)
 
 class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterUserSerializer
@@ -117,3 +120,16 @@ class MedicineDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Medicine.objects.filter(user=self.request.user)
+
+class DocumentListView(generics.ListCreateAPIView):
+    serializer_class = DocumentSerializer
+    permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def get_queryset(self):
+        logger.warning(f"request.user: {self.request.user} type: {type(self.request.user)}")
+        return Document.objects.filter(user=self.request.user)
+

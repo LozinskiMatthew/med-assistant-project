@@ -1,0 +1,17 @@
+<div class="file-upload-container">
+  <div class="header">
+    <h2>Upload PDF</h2>
+    <button class="go-back-button" (click)="goBack()">← Main page</button>
+  </div>
+
+  <input type="text" [(ngModel)]="title" placeholder="Document Title">
+  <input type="file" (change)="onFileSelected($event)" accept="application/pdf">
+  <button (click)="uploadFile()">Upload</button>
+
+  <h2>My PDFs</h2>
+  <ul>
+    <li *ngFor="let file of files">
+      <a [href]="file.document_file" target="_blank">{{ file.title }}</a>
+    </li>
+  </ul>
+</div>
