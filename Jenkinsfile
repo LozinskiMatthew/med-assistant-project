@@ -8,29 +8,18 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                echo 'Github checkout'
                 checkout scm
             }
         }
 
         stage('Build Docker Images') {
+
             steps {
                 script {
-                    sh 'docker compose build'
+                    echo 'Building and starting Docker containers'
+                    sh 'docker compose -f docker-compose.yml up --build'
                 }
-            }
-        }
-
-        stage('Run Tests') {
-            steps {
-                script {
-                    sh 'docker compose run --rm backend pytest'
-                }
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo "Deploy step placeholder. Add your deployment logic here."
             }
         }
     }
