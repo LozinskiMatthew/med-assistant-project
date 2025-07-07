@@ -6,6 +6,7 @@ services:
     ports:
       - "8080:8080"
       - "50000:50000"
+    user: "1000:984"
     volumes:
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock

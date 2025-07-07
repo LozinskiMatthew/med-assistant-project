@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker compose -f docker-compose.jenkins.yml up --build -d
+docker compose -f docker-compose.jenkins.yml up --build
 
 echo "Waiting for Jenkins to initialize..."
 
