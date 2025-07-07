@@ -26,4 +26,4 @@ RUN apt-get update && \
     apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin && \
     groupdel docker && groupadd -g 984 docker && usermod -aG docker jenkins
 
-USER jenkins
+#USER jenkins
