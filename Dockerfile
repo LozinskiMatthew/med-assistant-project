@@ -24,6 +24,6 @@ RUN echo \
 # Install Docker CLI, Docker Compose v2 plugin
 RUN apt-get update && \
     apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin && \
-    usermod -aG docker jenkins
+    groupdel docker && groupadd -g 984 docker && usermod -aG docker jenkins
 
 USER jenkins
