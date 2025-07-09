@@ -10,8 +10,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import serializers
 from rest_framework.parsers import MultiPartParser, FormParser
 import logging
-
 logger = logging.getLogger(__name__)
+
 
 class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterUserSerializer
@@ -132,4 +132,3 @@ class DocumentListView(generics.ListCreateAPIView):
     def get_queryset(self):
         logger.warning(f"request.user: {self.request.user} type: {type(self.request.user)}")
         return Document.objects.filter(user=self.request.user)
-

@@ -3,6 +3,7 @@ services:
     build: ./backend
     volumes:
       - ./backend:/app
+      - shared_media:/app/media/documents
     container_name: backend
     ports:
       - "8000:8000"
@@ -58,14 +59,20 @@ services:
     build: ./rag
     container_name: rag
     ports:
-      - "8008:8008"
+      - "8010:8888"
     volumes:
       - rag_data:/app/data
+      - shared_media:/app/shared_documents
     environment:
       - DEBUG=True
+      - COHERE_API_KEY=${COHERE_API_KEY}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    env_file:
+      - .env
     depends_on:
       - postgres
 
 volumes:
+  shared_media:
   postgres_data:
   rag_data:

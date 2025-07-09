@@ -1,3 +1,7 @@
+"""
+Future for fine tuning model, assuming that I would possess a hardware power.
+"""
+
 import shutil
 import os
 import subprocess

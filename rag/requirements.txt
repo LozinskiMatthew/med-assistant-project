@@ -1,0 +1,8 @@
+langchain
+langchain_community
+langchain_cohere
+tiktoken
+jupyter
+groq
+fastapi
+uvicorn

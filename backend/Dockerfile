@@ -13,6 +13,6 @@ COPY entrypoint.sh /app/entrypoint.sh
 COPY wait_for_database.sh /app/wait_for_database.sh
 RUN chmod +x /app/entrypoint.sh /app/wait_for_database.sh
 
-EXPOSE 8000
+EXPOSE 8080
 
 ENTRYPOINT ["/app/entrypoint.sh"]

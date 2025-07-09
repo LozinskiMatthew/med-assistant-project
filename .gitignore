@@ -1,6 +1,9 @@
 # Environment file
 .env
 
+# Ignore all .env files in all directories
+**/*.env
+
 # Program files pycharm/VSCode
 .idea/
 .vscode/

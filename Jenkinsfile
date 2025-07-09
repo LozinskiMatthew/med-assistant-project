@@ -13,8 +13,7 @@ pipeline {
         stage('Cloning GitHub repo to Jenkins') {
             steps {
                 echo 'Cloning GitHub repo to Jenkins'
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/LozinskiMatthew/med-assistant-project.git']])
-            }
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-classic-token', url: 'https://github.com/LozinskiMatthew/med-assistant-project.git']])            }
         }
 
         stage('Generate .env file') {
