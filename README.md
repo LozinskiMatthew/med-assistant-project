@@ -47,7 +47,7 @@ Running this project is extremely simple thanks to full Dockerization. The **ent
 
 ---
 
-### 🔧 Prerequisites
+## 🔧 Prerequisites
 
 - [Docker Engine](https://docs.docker.com/engine/install/) installed and running  
 - Basic terminal usage  
@@ -55,36 +55,9 @@ Running this project is extremely simple thanks to full Dockerization. The **ent
 
 ---
 
-### 📂 Environment Setup
+# 📂 Environment Setup
 
-Before running the stack, you need to configure two `.env` files:
-
-#### 1️⃣ Root `.env` (in the main project folder)
-
-```env
-POSTGRES_DB=medical                # must be 'medical'
-POSTGRES_USER=your_username
-POSTGRES_PASSWORD=your_password
-POSTGRES_HOST=postgres            # must be 'postgres'
-POSTGRES_PORT=5432                # must be '5432'
-COHERE_API_KEY=your_api_key
-GROQ_API_KEY=your_api_key
-
-Directly in the main forlder of the entire app, file .env:
-POSTGRES_DB=medical #must be this
-POSTGRES_USER=something_you_want
-POSTGRES_PASSWORD=something_you_want
-POSTGRES_HOST=postgres #must be this
-POSTGRES_PORT=5432 #must be this
-COHERE_API_KEY=your_api_key
-GROQ_API_KEY=your_api_key
-
-Then second .env dircetly in the rag folder with the following content:
-COHERE_API_KEY=your_api_key
-GROQ_API_KEY=your_api_key
-```
-
-## 🔑 1.5 Get Your API Keys
+## 🔑 1️⃣ Get Your API Keys
 
 To use the language models, you must generate and insert valid API keys:
 
@@ -104,7 +77,28 @@ To use the language models, you must generate and insert valid API keys:
 
         Copy it and paste in both .env files where GROQ_API_KEY is needed
 
-## 2️⃣ RAG `.env` (inside `/rag` folder)
+
+Before running the stack, you need to configure two `.env` files:
+
+## 2️⃣ Root `.env` (in the main project folder)
+
+```env
+# Directly in the main folder of the entire app, file .env:
+POSTGRES_DB=medical                # must be 'medical'
+POSTGRES_USER=your_username
+POSTGRES_PASSWORD=your_password
+POSTGRES_HOST=postgres            # must be 'postgres'
+POSTGRES_PORT=5432                # must be '5432'
+COHERE_API_KEY=your_api_key
+GROQ_API_KEY=your_api_key
+```
+```env
+# Then second .env file directly in the rag folder with the following content:
+COHERE_API_KEY=your_api_key
+GROQ_API_KEY=your_api_key
+```
+
+## 3️⃣ RAG `.env` (inside `/rag` folder)
 
 Create a second `.env` file specifically for the RAG component with the following content:
 
@@ -132,14 +126,16 @@ docker-compose up --build
 
 This builds and runs the following services:
 
-    Django backend for user management and PostgreSQL
+    Django backend for user management
+    
+    PostgreSQL as a database
 
     FastAPI container hosting the RAG logic
 
     Angular frontend exposed at http://localhost:4200
 
 ## ✅ That’s It!
-You now have a fully running production-grade RAG system on your local machine — ready for:
+You now have a fully running production-grade RAG system on your local machine simply enter http://localhost:4200, once the containers will be running, the app is ready for:
 
     🔬 Experimentation
 
