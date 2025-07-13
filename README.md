@@ -70,16 +70,6 @@ POSTGRES_PORT=5432                # must be '5432'
 COHERE_API_KEY=your_api_key
 GROQ_API_KEY=your_api_key
 
-Feel free to contribute, fork, or reach out if you'd like to collaborate!
-
-
-How to run the project?
-As for software
-You need to have a docker engine running, on your host directly, cannot be with
-docker desktop, due to the DooD setup, entire app will run in it, thus you dont need anything else
-As for code to work the only command that you need is npm install, to be run in the frontend directory, for modules/.angular
-Furthermore you must create .env files with the following content in following locations:
-
 Directly in the main forlder of the entire app, file .env:
 POSTGRES_DB=medical #must be this
 POSTGRES_USER=something_you_want
