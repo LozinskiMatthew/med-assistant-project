@@ -6,3 +6,5 @@ jupyter
 groq
 fastapi
 uvicorn
+pypdf
+faiss-cpu
