@@ -82,18 +82,14 @@ Before running the stack, you need to configure two `.env` files:
 
 ## 2️⃣ Root `.env` (in the main project folder)
 
+Directly in the main folder of the entire app, file .env:
+
 ```env
-# Directly in the main folder of the entire app, file .env:
 POSTGRES_DB=medical                # must be 'medical'
 POSTGRES_USER=your_username
 POSTGRES_PASSWORD=your_password
 POSTGRES_HOST=postgres            # must be 'postgres'
 POSTGRES_PORT=5432                # must be '5432'
-COHERE_API_KEY=your_api_key
-GROQ_API_KEY=your_api_key
-```
-```env
-# Then second .env file directly in the rag folder with the following content:
 COHERE_API_KEY=your_api_key
 GROQ_API_KEY=your_api_key
 ```
@@ -126,15 +122,8 @@ This builds and runs the following services:
     Angular frontend exposed at http://localhost:4200
 
 ## ✅ That’s It!
-You now have a fully running RAG system on your local machine simply enter http://localhost:4200, once the containers will be running, the app is ready for:
 
-    🔬 Experimentation
-
-    🧪 Prototyping
-
-    ☁️ Cloud deployment
-
-    🤖 Extending with new LLM features
+You now have a fully running RAG system on your local machine simply enter http://localhost:4200, once the containers will be within a running state.
 
 ## 📌 Development Status
 
