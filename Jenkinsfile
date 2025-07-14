@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    """
+    triggers {
+        githubPush()
+    }
+    """
+
     environment {
         POSTGRES_DB = credentials('POSTGRES_DB')
         POSTGRES_USER = credentials('POSTGRES_USER')

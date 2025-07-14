@@ -38,7 +38,7 @@ An advanced RAG system integrated within a **RESTful API**, using a **multi-cont
 
 ---
 
-## 🛠️ How to Run the Project
+# 🛠️ How to Run the Project
 
 Running this project is extremely simple thanks to full Dockerization. The **entire application** (frontend, backend, vector engine, database) runs in containers — no need to install Python, Node.js, PostgreSQL, etc. on your machine.
 
@@ -55,9 +55,9 @@ Running this project is extremely simple thanks to full Dockerization. The **ent
 
 ---
 
-# 📂 Environment Setup
+## 📂 Environment Setup
 
-## 🔑 1️⃣ Get Your API Keys
+### 🔑 1️⃣ Get Your API Keys
 
 To use the language models, you must generate and insert valid API keys:
 
@@ -80,7 +80,7 @@ To use the language models, you must generate and insert valid API keys:
 
 Before running the stack, you need to configure two `.env` files:
 
-## 2️⃣ Root `.env` (in the main project folder)
+### 2️⃣ Root `.env` (in the main project folder)
 
 Directly in the main folder of the entire app, file .env:
 
@@ -94,7 +94,7 @@ COHERE_API_KEY=your_api_key
 GROQ_API_KEY=your_api_key
 ```
 
-## 3️⃣ RAG `.env` (inside `/rag` folder)
+### 3️⃣ RAG `.env` (inside `/rag` folder)
 
 Create a second `.env` file specifically for the RAG component with the following content:
 
