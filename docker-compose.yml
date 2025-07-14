@@ -8,7 +8,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DEBUG=True
+      - DEBUG=False
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -19,27 +19,18 @@ services:
     working_dir: /app
     depends_on:
       - postgres
-    links:
-      - "postgres:database"
-      - "postgres:db"
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: frontend
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
     ports:
       - "4200:4200"
     command: npm run start
     working_dir: /app
     environment:
       - CHOKIDAR_USEPOLLING=true
-    links:
-      - "postgres:database"
-      - "postgres:db"
 
   postgres:
     image: postgres:17
@@ -64,7 +55,7 @@ services:
       - rag_data:/app/data
       - shared_media:/app/shared_documents
     environment:
-      - DEBUG=True
+      - DEBUG=False
       - COHERE_API_KEY=${COHERE_API_KEY}
       - GROQ_API_KEY=${GROQ_API_KEY}
     env_file:

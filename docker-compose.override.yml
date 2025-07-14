@@ -1,0 +1,19 @@
+services:
+  backend:
+    environment:
+      - DEBUG=True
+    links:
+      - "postgres:database"
+      - "postgres:db"
+
+  frontend:
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    links:
+      - "postgres:database"
+      - "postgres:db"
+
+  rag:
+    environment:
+      - DEBUG=True
