@@ -50,7 +50,7 @@ Running this project is extremely simple thanks to full Dockerization. The **ent
 ## 🔧 Prerequisites
 
 - [Docker Engine](https://docs.docker.com/engine/install/) installed and running  
-- Basic terminal usage  
+- Basic terminal usage + docker CLI
 - Clone this repository
 
 ---
@@ -107,21 +107,12 @@ COHERE_API_KEY=your_api_key
 GROQ_API_KEY=your_api_key
 ```
 
-## 🧱 First-Time Setup
-
-Only one extra step is required before building the stack — install frontend dependencies:
-
-```bash
-cd frontend
-npm install
-```
-
 ## ▶️ Running the Full Stack
 
-Once the `.env` files and frontend dependencies are set, simply run:
+Once the `.env` files are set, it's all you need, now simply run (in the main project directory):
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 This builds and runs the following services:
@@ -135,7 +126,7 @@ This builds and runs the following services:
     Angular frontend exposed at http://localhost:4200
 
 ## ✅ That’s It!
-You now have a fully running production-grade RAG system on your local machine simply enter http://localhost:4200, once the containers will be running, the app is ready for:
+You now have a fully running RAG system on your local machine simply enter http://localhost:4200, once the containers will be running, the app is ready for:
 
     🔬 Experimentation
 
