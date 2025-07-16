@@ -1,6 +1,7 @@
 langchain
 langchain_community
 langchain_cohere
+langgraph
 tiktoken
 jupyter
 groq
@@ -8,3 +9,4 @@ fastapi
 uvicorn
 pypdf
 faiss-cpu
+langchain_groq
