@@ -1,6 +1,7 @@
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from api.models import User
 
+
 class CustomJWTAuthentication(JWTAuthentication):
     def get_user(self, validated_token):
         try:
