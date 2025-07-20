@@ -54,3 +54,10 @@ class DocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
         fields = ['id', 'title', 'document_file', 'uploaded_at']
+
+    def validate_document_file(self, file):
+        if not file.name.lower().endswith('.pdf'):
+            raise serializers.ValidationError("Only PDF files are allowed.")
+        if file.content_type != 'application/pdf':
+            raise serializers.ValidationError("File content type must be PDF.")
+        return file

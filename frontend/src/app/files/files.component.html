@@ -6,7 +6,13 @@
 
   <input type="text" [(ngModel)]="title" placeholder="Document Title">
   <input type="file" (change)="onFileSelected($event)" accept="application/pdf">
+  <div class="pdf-warning">
+  You can only upload files with a <strong>.pdf</strong> extension that contain valid PDF content.
+  </div>
+  <div class="upload-controls">
   <button (click)="uploadFile()">Upload</button>
+  </div>
+
 
   <h2>My PDFs</h2>
   <ul>

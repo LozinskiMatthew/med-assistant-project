@@ -9,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import serializers
 from rest_framework.parsers import MultiPartParser, FormParser
+from django.http import FileResponse, Http404
 import logging
 logger = logging.getLogger(__name__)
 
@@ -132,3 +133,15 @@ class DocumentListView(generics.ListCreateAPIView):
     def get_queryset(self):
         logger.warning(f"request.user: {self.request.user} type: {type(self.request.user)}")
         return Document.objects.filter(user=self.request.user)
+
+
+class DocumentDownloadView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk):
+        try:
+            document = Document.objects.get(pk=pk, user=request.user)
+        except Document.DoesNotExist:
+            raise Http404("Document not found")
+
+        return FileResponse(document.document_file.open("rb"), as_attachment=True)

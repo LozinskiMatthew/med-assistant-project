@@ -26,9 +26,20 @@ export class FilesComponent {
     });
   }
 
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+onFileSelected(event: any) {
+  const fileInput = event.target as HTMLInputElement;
+  const file = fileInput.files?.[0] || null;
+
+  if (file && file.type !== 'application/pdf') {
+    alert('Only PDF files are allowed!');
+    this.selectedFile = null;
+    fileInput.value = '';
+    return;
   }
+
+  this.selectedFile = file;
+}
+
 
   uploadFile() {
     if (this.selectedFile && this.title) {
