@@ -53,7 +53,7 @@ services:
     ports:
       - "8010:8888"
     volumes:
-      - rag_data:/app/data
+      - rag_logs:/app/src/logs
       - shared_media:/app/shared_documents
     environment:
       - DEBUG=False
@@ -68,4 +68,4 @@ services:
 volumes:
   shared_media:
   postgres_data:
-  rag_data:
+  rag_logs:

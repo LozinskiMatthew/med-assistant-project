@@ -9,6 +9,7 @@ from pathlib import Path
 from groq import Groq
 from datetime import datetime
 from .logger import get_logger
+from langchain_community.document_loaders import PyPDFLoader
 
 logger = get_logger(__name__)
 
@@ -132,18 +133,24 @@ def load_user_documents(user_id: int) -> str:
             if doc_file.suffix.lower() in ['.pdf']:
                 try:
                     logger.warning(f"Attempting to read PDF as text: {doc_file.name}")
-                    with open(doc_file, 'r', encoding='utf-8') as f:
-                        content = f.read()
-                        documents_content.append(f"Document: {doc_file.name}\n{content}\n")
-                        logger.info(f"Successfully read {doc_file.name}, content length: {len(content)}")
+                    loader = []
+                    loader = PyPDFLoader(os.path.join(user_docs_path, doc_file.name))
+                    pages = loader.load()
+                    logger.info(f"Successfully read {doc_file.name}, pages length: {len(pages)}")
+                    documents_content.append("\n".join(pages[page].page_content for page in range(len(pages))))
                 except Exception as e:
                     logger.error(f"Error reading {doc_file}: {type(e).__name__}: {e}")
             else:
                 logger.info(f"Skipping file {doc_file.name} - not a supported format")
 
-    result = "\n".join(documents_content) if documents_content else "No readable documents found."
+    if documents_content:
+        result = "\n\n\n\n\n\n".join(
+            f"\n\n\n Document {i}\n\n\n{doc}" for i, doc in enumerate(documents_content)
+        )
+    else:
+        result = "No readable documents found."
     logger.info(f"Final documents content length: {len(result)}")
-    return result
+    return result[:2500]
 
 
 @app.post("/chat")
@@ -188,9 +195,3 @@ User's Documents:
     except Exception as e:
         logger.error(f"Error in chat endpoint: {type(e).__name__}: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
-
-
-# Health check endpoint
-@app.get("/health")
-async def health_check():
-    return {"status": "healthy", "timestamp": datetime.now().isoformat()}
