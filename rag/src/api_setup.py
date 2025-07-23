@@ -38,6 +38,11 @@ class ApiSetup:
         os.environ['GROQ_API_KEY'] = groq_api_key
         os.environ['LANGSMITH_API_KEY'] = langsmith_api_key
 
+
+    def get_django_secret_key(self):
+        django_secret_key = os.getenv('DJANGO_SECRET_KEY')
+        return django_secret_key
+
 if __name__ == "__main__":
     api = ApiSetup()
     #print(api.cohere_api_key) Debug only with .self

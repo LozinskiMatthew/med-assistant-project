@@ -7,7 +7,6 @@ import jwt
 from dotenv import load_dotenv
 from pathlib import Path
 from groq import Groq
-from datetime import datetime
 from .logger import get_logger
 from langchain_community.document_loaders import PyPDFLoader
 

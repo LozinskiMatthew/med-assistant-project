@@ -1,8 +1,9 @@
-# 🔍 Advanced RAG System with Dual Backend Architecture for medical diagnosis
+# Advanced RAG System with Dual Backend Architecture for medical diagnosis
 
 This project implements a large-scale, production-ready **Retrieval-Augmented Generation (RAG)** system, designed for modularity, scalability, and cloud-native deployment.
+The project is designed as an AI Doctor, where properly chosen group of agents respond with retrieved content to the user questions about their illnesses, additionally agents can use user defined documents.
 
-## 🧠 Overview
+## Overview
 
 An advanced RAG system integrated within a **RESTful API**, using a **multi-container architecture** to maintain clean separation of concerns:
 
@@ -11,23 +12,23 @@ An advanced RAG system integrated within a **RESTful API**, using a **multi-cont
 - **Angular**: Frontend application for interacting with and displaying backend data.
 - **PostgreSQL**: Relational database connected to the Django backend.
 
-## ⚙️ Architecture
+## Architecture
 +----------------------+ +---------------------+ \
 | Angular UI | <----> | FastAPI (RAG API) | <----> | Django (volume) | \
 | Django (Users/Auth) | <----> | PostgreSQL DB | \
 +----------------------+ +----------------------+
 
 
-## 🚀 Features
+## Features
 
-- 🔁 **Dual Backend**: Django (auth, admin) & FastAPI (RAG inference)
-- 🐳 **Full Dockerization**: All components containerized for reproducibility
-- ⚙️ **CI/CD-Ready**: Jenkins pipelines configured for continuous integration & deployment
-- ☁️ **Cloud Deployment**: Deployment targeted to Azure Kubernetes Service (AKS)
-- 📈 **Monitoring (soon)**: Prometheus & Grafana support for live metrics and observability
-- 🧠 **LLM Extensions**: Actively integrating advanced language model features
+- **Dual Backend**: Django (auth, admin) & FastAPI (RAG inference)
+- **Full Dockerization**: All components containerized for reproducibility
+- **CI/CD-Ready**: Jenkins pipelines configured for continuous integration & deployment
+- **Cloud Deployment**: Deployment targeted to Azure Kubernetes Service (AKS)
+- **Monitoring (soon)**: Prometheus & Grafana support for live metrics and observability
+- **LLM Extensions**: Actively integrating advanced language model features
 
-## 📦 Tech Stack
+## Tech Stack
 
 - **Backend**: FastAPI, Django, PostgreSQL
 - **Frontend**: Angular
@@ -38,7 +39,7 @@ An advanced RAG system integrated within a **RESTful API**, using a **multi-cont
 
 ---
 
-# 🛠️ How to Run the Project
+# How to Run the Project
 
 Running this project is extremely simple thanks to full Dockerization. The **entire application** (frontend, backend, vector engine, database) runs in containers — no need to install Python, Node.js, PostgreSQL, etc. on your machine.
 
@@ -47,17 +48,17 @@ Running this project is extremely simple thanks to full Dockerization. The **ent
 
 ---
 
-## 🔧 Prerequisites
+## Prerequisites
 
 - [Docker Engine](https://docs.docker.com/engine/install/) installed and running  
-- Basic terminal usage + docker CLI
+- Terminal with docker CLI
 - Clone this repository
 
 ---
 
-## 📂 Environment Setup
+## Environment Setup
 
-### 🔑 1️⃣ Get Your API Keys
+### 1️⃣ Get Your API Keys
 
 To use the language models, you must generate and insert valid API keys:
 
@@ -103,7 +104,7 @@ COHERE_API_KEY=your_api_key
 GROQ_API_KEY=your_api_key
 ```
 
-## ▶️ Running the Full Stack
+## Running the Full Stack
 
 Once the `.env` files are set, it's all you need, now simply run (in the main project directory):
 
@@ -125,11 +126,11 @@ This builds and runs the following services:
 
 You now have a fully running RAG system on your local machine simply enter http://localhost:4200, once the containers will be within a running state.
 
-## 📌 Development Status
+## Development Status
 
-> 🛠️ Currently focused on stability improvements and LLM feature integration.  
-> ☁️ Cloud deployment to AKS in progress.  
-> 📊 Monitoring stack will be added soon.
+> Currently focused on stability improvements and LLM feature integration.  
+> Cloud deployment to AKS in progress.  
+> Monitoring stack will be added soon.
  
 
 Feel free to contribute, fork, or reach out if you'd like to collaborate!
