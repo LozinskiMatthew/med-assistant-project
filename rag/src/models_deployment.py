@@ -161,6 +161,7 @@ async def chat(request: ChatRequest, current_user: int = Depends(get_current_use
     try:
         # Load user's documents for context
         user_documents = load_user_documents(current_user)
+        # user_documents -> string
         logger.info(f"User documents loaded, length: {len(user_documents)}")
 
         # Create system prompt with user's documents

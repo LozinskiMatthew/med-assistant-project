@@ -31,9 +31,9 @@ class DataIngestion:
 
         try:
             token = credentials.credentials
-            logger.info(f"Received token length: {len(token)}")
-            logger.info(f"Token first 20 chars: {token[:20]}...")
-            logger.info(f"Token last 20 chars: ...{token[-20:]}")
+            logger.info(f"Received token: {"reveived_truly" if token else 'No token'}")
+            # logger.info(f"Token first 20 chars: {token[:20]}...")
+            # logger.info(f"Token last 20 chars: ...{token[-20:]}")
 
             if not self.django_secret_key:
                 logger.error("DJANGO_SECRET_KEY is None or empty!")
@@ -67,7 +67,7 @@ class DataIngestion:
             logger.error(f"Unexpected error in get_current_user: {type(e).__name__}: {e}")
             raise HTTPException(status_code=500, detail="Authentication error")
 
-    def get_user_documents_path(self, user_id: int) -> Path:
+    def __get_user_documents_path(self, user_id: int) -> Path:
         documents_base = Path("/app/shared_documents")
         user_path = documents_base / f"user_{user_id}"
         logger.info(f"User documents path: {user_path}")
@@ -77,7 +77,7 @@ class DataIngestion:
         """Load and process user's documents for RAG"""
         logger.info(f"=== Document Loading Debug for user_{user_id} ===")
 
-        user_docs_path = self.get_user_documents_path(user_id)
+        user_docs_path = self.__get_user_documents_path(user_id)
         logger.info(f"Looking for documents in: {user_docs_path}")
         logger.info(f"Path exists: {user_docs_path.exists()}")
 
