@@ -9,6 +9,7 @@ from pathlib import Path
 from groq import Groq
 from .logger import get_logger
 from langchain_community.document_loaders import PyPDFLoader
+from .utils import prepare_docs
 
 logger = get_logger(__name__)
 
@@ -132,9 +133,8 @@ def load_user_documents(user_id: int) -> str:
             if doc_file.suffix.lower() in ['.pdf']:
                 try:
                     logger.warning(f"Attempting to read PDF as text: {doc_file.name}")
-                    loader = []
-                    loader = PyPDFLoader(os.path.join(user_docs_path, doc_file.name))
-                    pages = loader.load()
+                    pages = prepare_docs(user_id, doc_file.name, cs=500, co=50)
+                    logger.info("Doc successfully read and prepared")
                     logger.info(f"Successfully read {doc_file.name}, pages length: {len(pages)}")
                     documents_content.append("\n".join(pages[page].page_content for page in range(len(pages))))
                 except Exception as e:

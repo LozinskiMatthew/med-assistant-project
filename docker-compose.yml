@@ -1,10 +1,13 @@
 services:
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    working_dir: /app
     volumes:
       - ./backend:/app
       - shared_media:/app/media/documents
-    container_name: backend
     ports:
       - "8000:8000"
     environment:
@@ -17,7 +20,6 @@ services:
       - PYTHONUNBUFFERED=1
     env_file:
       - .env
-    working_dir: /app
     depends_on:
       - postgres
 
@@ -26,33 +28,37 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: frontend
+    working_dir: /app
     ports:
       - "4200:4200"
     command: npm run start
-    working_dir: /app
     environment:
       - CHOKIDAR_USEPOLLING=true
 
   postgres:
     image: postgres:17
     container_name: postgres
+    ports:
+      - "5432:5432"
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     env_file:
       - .env
-    ports:
-      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
   rag:
-    build: ./rag
+    build:
+      context: ./rag
+      dockerfile: Dockerfile
     container_name: rag
+    working_dir: /app
     ports:
       - "8010:8888"
     volumes:
+      - ./rag:/app
       - rag_logs:/app/src/logs
       - shared_media:/app/shared_documents
     environment:
