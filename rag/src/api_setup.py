@@ -38,6 +38,9 @@ class ApiSetup:
         os.environ['GROQ_API_KEY'] = groq_api_key
         os.environ['LANGSMITH_API_KEY'] = langsmith_api_key
 
+        os.environ["LANGCHAIN_TRACING_V2"] = "true"
+        os.environ["LANGCHAIN_PROJECT"] = "RAG-Medical-Project"
+
 
     def get_django_secret_key(self):
         django_secret_key = os.getenv('DJANGO_SECRET_KEY')
