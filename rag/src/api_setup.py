@@ -1,11 +1,11 @@
 import os
 from dotenv import load_dotenv, find_dotenv
 from pathlib import Path
-from rag.src.logger import get_logger
+from .logger import get_logger
 
 logger = get_logger(__name__)
 
-env_path = Path.cwd().resolve().parents[1] / '.env'
+env_path = Path.cwd().resolve().parent / '.env'
 
 load_dotenv(find_dotenv(), override=True)
 

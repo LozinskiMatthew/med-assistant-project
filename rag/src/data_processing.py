@@ -45,7 +45,7 @@ class FilesDataProcessing:
             results = ["There aren't any documents!!!!"]
         return results
 
-    def rerank(self, results):
+    def rerank(self, results) -> list:
         docs_content = [doc.page_content + " " + str(doc.metadata) for doc, score in results]
 
         try:
@@ -65,6 +65,6 @@ class FilesDataProcessing:
 
         return reranked_docs
 
-    def preprocess(self):
+    def preprocess(self) -> list:
         stored_embeddings = self.embed_and_store()
         return self.rerank(stored_embeddings)

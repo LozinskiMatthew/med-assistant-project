@@ -7,50 +7,27 @@ import jwt
 from dotenv import load_dotenv
 from pathlib import Path
 from groq import Groq
+
+from .api_setup import ApiSetup
+from .data_ingestion import DataIngestion
 from .logger import get_logger
 from langchain_community.document_loaders import PyPDFLoader
 from .utils import prepare_docs
 
 logger = get_logger(__name__)
 
-# Load .env
-env_path = Path.cwd().resolve() / '.env'
-load_dotenv(dotenv_path=env_path)
-
-cohere_api_key = os.getenv('COHERE_API_KEY')
-groq_api_key = os.getenv('GROQ_API_KEY')
-django_secret_key = os.getenv('DJANGO_SECRET_KEY')
-
-# Log environment setup
-logger.info("=== FastAPI Starting ===")
-logger.info(f"COHERE_API_KEY exists: {bool(cohere_api_key)}")
-logger.info(f"GROQ_API_KEY exists: {bool(groq_api_key)}")
-logger.info(f"DJANGO_SECRET_KEY exists: {bool(django_secret_key)}")
-if django_secret_key:
-    logger.info(f"DJANGO_SECRET_KEY first 10 chars: {django_secret_key[:10]}...")
-
-os.environ['COHERE_API_KEY'] = cohere_api_key
-os.environ['GROQ_API_KEY'] = groq_api_key
+api_setup = ApiSetup()
+django_secret_key = api_setup.get_django_secret_key()
 
 client = Groq()
 app = FastAPI()
 
-# Security scheme
 security = HTTPBearer()
 
-# Enable CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:4200"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
+data_ingestion = DataIngestion(django_secret_key, client, app)
 
 class ChatRequest(BaseModel):
     message: str
-
 
 def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
     logger.info("=== Authentication Debug ===")
