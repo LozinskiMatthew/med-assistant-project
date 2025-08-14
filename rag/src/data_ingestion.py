@@ -31,7 +31,7 @@ class DataIngestion:
 
         try:
             token = credentials.credentials
-            logger.info(f"Received token: {"reveived_truly" if token else 'No token'}")
+            logger.info(f"{'Received token' if token else 'No token'}")
             # logger.info(f"Token first 20 chars: {token[:20]}...")
             # logger.info(f"Token last 20 chars: ...{token[-20:]}")
 

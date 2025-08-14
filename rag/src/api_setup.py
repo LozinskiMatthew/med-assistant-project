@@ -1,6 +1,10 @@
 import os
 from dotenv import load_dotenv, find_dotenv
 from pathlib import Path
+
+from fastapi import FastAPI
+from groq import Groq
+
 from .logger import get_logger
 
 logger = get_logger(__name__)
@@ -8,6 +12,7 @@ logger = get_logger(__name__)
 env_path = Path.cwd().resolve().parent / '.env'
 
 load_dotenv(find_dotenv(), override=True)
+
 
 class ApiSetup:
     def __init__(self):

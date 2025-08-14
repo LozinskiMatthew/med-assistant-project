@@ -1,23 +1,30 @@
 import os.path
-from typing import List
-from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyPDFLoader
 
-def prepare_docs(user, path, cs=1800, co=300) -> List[Document]: # In future I can make it so it will do paths in for loop
-    docs_path = os.path.join("/app/shared_documents", f"user_{user}", path)
-    loader = PyPDFLoader(docs_path)
-    pages = loader.load()
+def split_text(self, user_id):
+    folder = f"/app/shared_documents/{user_id}"
+    pdf_files = [f for f in os.listdir(folder) if f.endswith(".pdf")]
+    all_pages = []
 
-    # Initialize the splitter
+    for file in pdf_files:
+        path = os.path.join(folder, file)
+        loader = PyPDFLoader(path)
+        pages = loader.load()
+        all_pages.append(pages)
+
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=cs,  # max characters per chunk
-        chunk_overlap=co,  # overlap between chunks
-        length_function=len,  # use character count
-        separators=["\n\n", "\n", " ", ""],  # split hierarchy
+        chunk_size=1800,
+        chunk_overlap=300,
+        length_function=len,
+        separators=["\n\n", "\n", " ", ""],
         is_separator_regex=False
     )
-    return text_splitter.split_documents(pages)
+
+    splitted_docs = []
+    for page in all_pages:
+        splitted_docs.append(text_splitter.split_documents(page))
+    return splitted_docs
 
 MEDICAL_SITES = [
     {

@@ -1,18 +1,22 @@
+from typing import Optional, List
+
 import faiss
+import cohere
 from langchain_community.docstore.in_memory import InMemoryDocstore
 from langchain_community.vectorstores import FAISS
 from langchain_cohere import CohereEmbeddings
-import cohere
-from langchain_core.documents.base import Document
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import PyPDFLoader
+
 from .logger import get_logger
 
 logger = get_logger(__name__)
 
+
 class FilesDataProcessing:
-    def __init__(self, query, docs=None):
+    def __init__(self, query, docs = None):
         self.docs = docs
         self.query = query
-
     def embed_and_store(self):
         try:
             embeddings = CohereEmbeddings(model="embed-v4.0")
