@@ -11,7 +11,7 @@ from langchain_groq import ChatGroq
 from langchain_community.docstore.in_memory import InMemoryDocstore
 from langchain_community.vectorstores import FAISS
 from langchain_cohere import CohereEmbeddings
-from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
+from langchain_core.messages import HumanMessage, SystemMessage, AIMessage, BaseMessage
 from langchain_core.documents.base import Document
 from langchain_community.document_loaders import WebBaseLoader
 
@@ -37,7 +37,7 @@ class State(TypedDict, total=False):
     user_prompt: Optional[str]
     scraped_count: int
     input_docs: List[Document]
-    last_reflection: Optional[str]
+    last_reflection: BaseMessage
     rewrites_redirection: bool
 
 
@@ -224,7 +224,7 @@ class RAG:
         }
 
 
-    def self_reflect(state: State) -> State:
+    def self_reflect(self, state: State) -> State:
         logger.info("SELF REFLECT!!!")
         logger.info("I am being launched")
 

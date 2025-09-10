@@ -1,55 +1,48 @@
 import os
-from dotenv import load_dotenv, find_dotenv
-from pathlib import Path
-
-from fastapi import FastAPI
-from groq import Groq
+from typing import Optional, Tuple
 
 from .logger import get_logger
 
+from dotenv import load_dotenv, find_dotenv
+
+
 logger = get_logger(__name__)
-
-env_path = Path.cwd().resolve().parent / '.env'
-
 load_dotenv(find_dotenv(), override=True)
+
+KEYS = ('COHERE_API_KEY', 'GROQ_API_KEY', 'LANGSMITH_API_KEY')
 
 
 class ApiSetup:
+
     def __init__(self):
 
         logger.info("Api Setup START \n Deriving api keys from .env")
 
-        cohere_api_key = os.getenv('COHERE_API_KEY')
-        if cohere_api_key is None:
-            logger.error('COHERE_API_KEY environment variable not set')
-            raise ValueError("COHERE_API_KEY not set in .env")
+        self.set_api_key(KEYS)
+        logger.info("Api keys loaded")
 
+        self.set_langchain_api_settings()
+        logger.info(f"Langchain api settings set")
 
-        groq_api_key = os.getenv('GROQ_API_KEY')
-        if groq_api_key is None:
-            logger.error("GROQ_API_KEY not set in .env")
-            raise ValueError("GROQ_API_KEY not set in .env")
+    @staticmethod
+    def set_api_key(environ_key_names: Tuple[str, ...]) -> None:
+        for environ_key_name in environ_key_names:
+            api_key = os.getenv(environ_key_name)
+            if api_key is None:
+                logger.error(f'{environ_key_name} environment variable not set')
+                raise ValueError(f'{environ_key_name} not set in .env')
+            os.environ['environ_key_name'] = api_key
 
-        langsmith_api_key = os.getenv('LANGSMITH_API_KEY')
-        if langsmith_api_key is None:
-            logger.error("LANGSMITH_API_KEY not set in .env")
-            raise ValueError("LANGSMITH_API_KEY not set in .env")
+    @staticmethod
+    def set_langchain_api_settings() -> None:
+        os.environ['LANGCHAIN_TRACING_V2'] = 'true'
+        os.environ['LANGCHAIN_PROJECT'] = 'RAG-Medical-Project'
 
-        logger.info("Api keys successfully loaded")
-
-        logger.info(f"Setting the env variables to langsmith, cohere and api keys.")
-
-        os.environ['COHERE_API_KEY'] = cohere_api_key
-        os.environ['GROQ_API_KEY'] = groq_api_key
-        os.environ['LANGSMITH_API_KEY'] = langsmith_api_key
-
-        os.environ["LANGCHAIN_TRACING_V2"] = "true"
-        os.environ["LANGCHAIN_PROJECT"] = "RAG-Medical-Project"
-
-
-    def get_django_secret_key(self):
+    @staticmethod
+    def get_django_key() -> Optional[str]:
         django_secret_key = os.getenv('DJANGO_SECRET_KEY')
         return django_secret_key
+
 
 if __name__ == "__main__":
     api = ApiSetup()

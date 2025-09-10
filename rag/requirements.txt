@@ -12,3 +12,4 @@ pypdf
 faiss-cpu
 langchain_groq
 PyJWT
+python-dotenv
